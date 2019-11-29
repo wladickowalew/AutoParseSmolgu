@@ -39,6 +39,11 @@ public class Window extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jList1);
 
+        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jList2MousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(jList2);
 
         jList3.setModel(new javax.swing.AbstractListModel<String>() {
@@ -63,8 +68,8 @@ public class Window extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,7 +79,7 @@ public class Window extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -84,6 +89,12 @@ public class Window extends javax.swing.JFrame {
         int id = jList3.getSelectedIndex();
         jList2.setListData(AutoParse.getMarks(id));
     }//GEN-LAST:event_jList3MouseClicked
+
+    private void jList2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MousePressed
+        int id1 = jList3.getSelectedIndex();
+        int id2 = jList2.getSelectedIndex();
+        jList1.setListData(AutoParse.getCompectations(id1, id2));
+    }//GEN-LAST:event_jList2MousePressed
 
     /**
      * @param args the command line arguments

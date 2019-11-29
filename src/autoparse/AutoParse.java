@@ -23,7 +23,6 @@ public class AutoParse {
     private static String[][][] marks;
     
     public static void main(String[] args) {
-        models = new String[20];
         String URL = "https://www.lada.ru/";
         try {
             parseHTML(URL);
@@ -53,7 +52,7 @@ public class AutoParse {
             models[i] = title;
             System.out.println(title);
            
-            Elements items2 = group.select("a");
+            Elements items2 = group.select("a[class]");
             int k = items2.size();
             String[][] ans = new String[2][k];
             for (int j = 0; j<k; j++){
@@ -75,21 +74,26 @@ public class AutoParse {
     public static String[] getMarks(int id){
         return marks[id][0];
     }
-    /*
-    public static String[] getMarks(int n) throws IOException{
-        String select = ".cars-menu__wrapper .cars-menu__sem";
-        Elements models = html.select(select);
-        int n = models.size();
-        this.models = new String[n];
-        for (Element model: models){
-            title = model.getElementsByTag("p").text();
-            //String cat_url = category.absUrl("href");
-            //System.out.println(title+": "+cat_url);
-            //getItemsFromURL(cat_url);
-            System.out.println(title);
-        }
-        
-    }
-*/
     
+    public static String[] getCompectations(int modelID, int id){
+        try {
+            String url =  marks[modelID][1][id];
+            //String url = "https://www.lada.ru/cars/vesta/sw/prices.html";
+            
+            Document html = Jsoup.connect(url).get();
+            String select = "div [itemprop='offers'] .kompl_name";
+            Elements items = html.select(select);
+            int n = items.size(); 
+            String[] ans = new String[n];
+            
+            for (int i = 0; i<n; i++){
+                Element comp = items.get(i);
+                ans[i] = comp.text();
+            }
+            return ans;
+        } catch (IOException ex) {
+            Logger.getLogger(AutoParse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
